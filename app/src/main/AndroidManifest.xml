@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Register" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activity android:name=".Register"></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
