@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.asus_rv.hackathon">
+
+    <uses-sdk
+        android:minSdkVersion="INSERT_YOUR_DESIRED_minSdkVersion_HERE"
+        tools:overrideLibrary="com.paypal.android.sdk.payments" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +31,10 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PaymentDetails"
+            android:label="@string/title_activity_payment_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
