@@ -62,6 +62,7 @@ public class Register extends AppCompatActivity {
             else
             {
                 Toast.makeText(Register.this, "Favor de ingresar contraseñas iguales.", Toast.LENGTH_SHORT).show();
+                mSocket.disconnect();
 
             }
 
