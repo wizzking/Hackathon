@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import android.app.Application;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -24,29 +25,52 @@ public class Login extends AppCompatActivity {
     private Socket mSocket;
     public void conectar ()
     {
-        try {
-            mSocket = IO.socket("http://192.168.8.27:90");
-        } catch (URISyntaxException e) {}
+        EditText DataUser2 = (EditText) findViewById(R.id.User);
+        String FinalUser2 = DataUser2.getText().toString();
 
-        mSocket.on("getResponse",getResponse);
+        EditText DataPass2 = (EditText) findViewById(R.id.Pass);
+        String FinalPass2 = DataPass2.getText().toString();
 
-        mSocket.connect();
+        if(TextUtils.isEmpty(FinalUser2) || TextUtils.isEmpty(FinalPass2)){
+            Toast.makeText(Login.this, "Favor de Completar los campos.", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            try {
+                mSocket = IO.socket("http://192.168.8.27:90");
+            } catch (URISyntaxException e) {}
+
+            mSocket.on("getResponse",getResponseLogin);
+
+            mSocket.connect();
+        }
+
+
+
+
 
     }
 
-    public Emitter.Listener getResponse=new Emitter.Listener(){
+    public Emitter.Listener getResponseLogin=new Emitter.Listener(){
         public void call(final Object... args){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run()
                 {
+                    EditText DataUser = (EditText) findViewById(R.id.User);
+                    String FinalUser = DataUser.getText().toString();
+
+                    EditText DataPass = (EditText) findViewById(R.id.Pass);
+                    String FinalPass = DataPass.getText().toString();
+
                     SocketData cont= new SocketData();
-                    cont.User        = "asd";
-                    cont.Password    = "asd";
-                    cont.Status       = "asd";
-                    cont.Type   = "asd";
+                    cont.User        = FinalUser;
+                    cont.Password    = FinalPass;
+                    cont.Status       = "1";
+                    cont.Type   = "Person";
                     Gson gson=new Gson();
                     mSocket.emit("sendDatosUser",gson.toJson(cont));
+                    String g = args[0].toString();
+                    Toast.makeText(Login.this, g, Toast.LENGTH_SHORT).show();
                 }
             });
         }
