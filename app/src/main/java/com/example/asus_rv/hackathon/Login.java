@@ -83,12 +83,14 @@ public class Login extends AppCompatActivity {
                     if (msg.Respuesta.equals("Persona"))
                     {
                         Toast.makeText(Login.this, "welcome Persona", Toast.LENGTH_SHORT).show();
+                        mSocket.disconnect();
                        Intent OpenMyHome=new Intent(Login.this,Home.class);
                       startActivity(OpenMyHome);
                     }
                     else if (msg.Respuesta.equals("Fijo"))
                     {
                         Toast.makeText(Login.this, "Welcome Fijo", Toast.LENGTH_SHORT).show();
+                        mSocket.disconnect();
                        Intent OpenMyHome2=new Intent(Login.this,Home.class);
                        startActivity(OpenMyHome2);
                     }
