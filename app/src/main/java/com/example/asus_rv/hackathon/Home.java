@@ -39,8 +39,13 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        esconderItem();
     }
-
+    private void esconderItem(){
+        NavigationView navegationView = (NavigationView)findViewById(R.id.nav_view);
+        Menu nav_Menu=navegationView.getMenu();
+        nav_Menu.findItem(R.id.nav_cobrar).setVisible(false);
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
