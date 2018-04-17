@@ -1,8 +1,11 @@
 package com.example.asus_rv.hackathon;
 
+import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,FragmentPagar.OnFragmentInteractionListener,FragmentCobrar.OnFragmentInteractionListener,FragmentHistorial.OnFragmentInteractionListener,FragmentAjustes.OnFragmentInteractionListener,FragmentSalir.OnFragmentInteractionListener {
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,25 +86,28 @@ public class Home extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        android.support.v4.app.Fragment fragment = null;
-        Boolean fragmentSelected= false;
+        android.support.v4.app.Fragment fracment = null;
+        Boolean fracmentSelected = false;
         if (id == R.id.nav_cobrar) {
-        } else if (id == R.id.nav_pagar) {
-            fragment = new FragmentPagar();
-            fragmentSelected = true;
-
+            fracment = new FragmentCobrar();
+            fracmentSelected=true;
+        }else if (id == R.id.nav_pagar) {
+            fracment = new FragmentPagar();
+            fracmentSelected=true;
         }else if (id == R.id.nav_historial) {
-
+            fracment = new FragmentHistorial();
+            fracmentSelected=true;
         }
         else if (id == R.id.nav_ajustes) {
+            fracment = new FragmentAjustes();
+            fracmentSelected=true;
 
-        } else if (id == R.id.nav_salir) {
-
-        } else if (id == R.id.nav_historial) {
-
+        }else if(id == R.id.nav_salir){
+            fracment = new FragmentSalir();
+            fracmentSelected=true;
         }
-        if(fragmentSelected){
-            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,fragment).commit();
+        if(fracmentSelected){
+            getSupportFragmentManager().beginTransaction().replace(R.id.conte,fracment).commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
