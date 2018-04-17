@@ -6,15 +6,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_cobrar"
-            android:icon="@mipmap/ic_cobrar"
+            android:icon="@drawable/ic_cobrar"
             android:title="Cobrar" />
         <item
             android:id="@+id/nav_pagar"
-            android:icon="@mipmap/ic_pagar"
+            android:icon="@drawable/ic_pagar"
             android:title="Pagar" />
         <item
             android:id="@+id/nav_historial"
-            android:icon="@mipmap/ic_historial"
+            android:icon="@drawable/ic_historial"
             android:title="Historial" />
     </group>
 
@@ -22,11 +22,11 @@
         <menu>
             <item
                 android:id="@+id/nav_ajustes"
-                android:icon="@mipmap/ic_ajustes"
+                android:icon="@drawable/ic_ajustes"
                 android:title="Ajustes" />
             <item
                 android:id="@+id/nav_salir"
-                android:icon="@mipmap/ic_salir"
+                android:icon="@drawable/ic_salir"
                 android:title="Cerrar Sesion" />
         </menu>
     </item>
