@@ -1,13 +1,30 @@
 package com.example.asus_rv.hackathon;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.asus_rv.hackathon.Config.Config;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
+
+import org.json.JSONException;
+
+import java.math.BigDecimal;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class FragmentPagar extends Fragment {
@@ -15,6 +32,16 @@ public class FragmentPagar extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final int PAYPAL_REQUEST_CODE = 7171;
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(Config.PAYPAL_CLIENT_ID);
+
+    Button btnPayNow;
+    EditText edtAmout;
+    String amount = "";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -46,11 +73,68 @@ public class FragmentPagar extends Fragment {
         }
     }
 
+
+    @Override
+    public void onDestroy(){
+        getActivity().stopService(new Intent(getActivity(),PayPalService.class));
+        super.onDestroy();
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_pagar, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment_pagar, container, false);
+        //Start PAYPAL Service
+        Intent intent = new Intent(getActivity(), PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        getActivity().startService(intent);
+
+        btnPayNow = (Button) view.findViewById(R.id.btnPayNow);
+        edtAmout = (EditText) view.findViewById(R.id.edtAmount);
+
+        btnPayNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processPayment();
+            }
+        });
+        return view;
+    }
+
+
+    private void processPayment() {
+        amount = edtAmout.getText().toString();
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(amount)),"MXN","Motivos o tienda a pagar",PayPalPayment.PAYMENT_INTENT_SALE);
+        Intent intent = new Intent(getActivity(), PaymentActivity.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
+        startActivityForResult(intent,PAYPAL_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode,int resultCode, Intent data){
+        if (requestCode == PAYPAL_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                PaymentConfirmation confirmation  = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                if (confirmation != null){
+                    try{
+                        String paymentDetails = confirmation.toJSONObject().toString(4);
+                        startActivity(new Intent(getActivity(),PaymentDetails.class)
+                                .putExtra("PaymentDetails",paymentDetails).putExtra("PaymentAmount",amount)
+                        );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else if (resultCode == Activity.RESULT_CANCELED){
+                Toast.makeText(getActivity(),"Pago cancelado",Toast.LENGTH_SHORT).show();
+            }
+        }else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID){
+            Toast.makeText(getActivity(),"Invalido",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
