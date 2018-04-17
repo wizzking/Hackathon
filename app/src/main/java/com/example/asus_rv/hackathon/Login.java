@@ -43,11 +43,6 @@ public class Login extends AppCompatActivity {
             mSocket.on("sendDatosUser",sendDatosUser);
             mSocket.connect();
         }
-
-
-
-
-
     }
 
     public Emitter.Listener getResponseLogin=new Emitter.Listener(){
