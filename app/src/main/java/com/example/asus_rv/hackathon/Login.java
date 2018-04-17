@@ -65,9 +65,9 @@ public class Login extends AppCompatActivity {
 
         Home_.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               // Intent OpenMyHome=new Intent(Login.this,Home.class);
+               Intent OpenMyHome=new Intent(Login.this,Home.class);
 
-               // startActivity(OpenMyHome);
+                startActivity(OpenMyHome);
                 conectar();
             }
         });
