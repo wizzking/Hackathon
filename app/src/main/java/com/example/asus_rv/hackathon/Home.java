@@ -79,21 +79,26 @@ public class Home extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        android.support.v4.app.Fragment fragment = null;
+        Boolean fragmentSelected= false;
+        if (id == R.id.nav_cobrar) {
+        } else if (id == R.id.nav_pagar) {
+            fragment = new FragmentPagar();
+            fragmentSelected = true;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        }else if (id == R.id.nav_historial) {
 
         }
+        else if (id == R.id.nav_ajustes) {
 
+        } else if (id == R.id.nav_salir) {
+
+        } else if (id == R.id.nav_historial) {
+
+        }
+        if(fragmentSelected){
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,fragment).commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

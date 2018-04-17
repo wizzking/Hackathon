@@ -5,34 +5,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_cobrar"
+            android:icon="@mipmap/ic_cobrar"
+            android:title="Cobrar" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_pagar"
+            android:icon="@mipmap/ic_pagar"
+            android:title="Pagar" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_historial"
+            android:icon="@mipmap/ic_historial"
+            android:title="Historial" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Cuenta">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_ajustes"
+                android:icon="@mipmap/ic_ajustes"
+                android:title="Ajustes" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_salir"
+                android:icon="@mipmap/ic_salir"
+                android:title="Cerrar Sesion" />
         </menu>
     </item>
-
 </menu>
