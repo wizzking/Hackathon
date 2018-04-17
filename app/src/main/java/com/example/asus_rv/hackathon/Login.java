@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
             } catch (URISyntaxException e) {}
 
             mSocket.on("getResponse",getResponseLogin);
-
+            mSocket.on("sendDatosUser",sendDatosUser);
             mSocket.connect();
         }
 
@@ -69,8 +69,38 @@ public class Login extends AppCompatActivity {
                     cont.Type   = "Person";
                     Gson gson=new Gson();
                     mSocket.emit("sendDatosUser",gson.toJson(cont));
-                    String g = args[0].toString();
-                    Toast.makeText(Login.this, g, Toast.LENGTH_SHORT).show();
+                    //String g = args[0].toString();
+                    //Toast.makeText(Login.this, g, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    };
+
+    public Emitter.Listener sendDatosUser=new Emitter.Listener(){
+        public void call(final Object... args){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run()
+                {
+                    Gson gson=new Gson();
+                    SocketData msg=gson.fromJson(args[0].toString(),SocketData.class);
+                    //Toast.makeText(Login.this, msg.Respuesta, Toast.LENGTH_SHORT).show();
+                    if (msg.Respuesta.equals("Persona"))
+                    {
+                        Toast.makeText(Login.this, "welcome Persona", Toast.LENGTH_SHORT).show();
+                       Intent OpenMyHome=new Intent(Login.this,Home.class);
+                      startActivity(OpenMyHome);
+                    }
+                    else if (msg.Respuesta.equals("Fijo"))
+                    {
+                        Toast.makeText(Login.this, "Welcome Fijo", Toast.LENGTH_SHORT).show();
+                       Intent OpenMyHome2=new Intent(Login.this,Home.class);
+                       startActivity(OpenMyHome2);
+                    }
+                    else
+                    {
+                        Toast.makeText(Login.this, "No se encontro la cuentaad", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -85,23 +115,17 @@ public class Login extends AppCompatActivity {
 
         Button Home_ = (Button) findViewById(R.id.Home);
         Button Register_ = (Button) findViewById(R.id.Registre);
-        Button Conexion_ = (Button) findViewById(R.id.conexion);
+
 
 
 
         Home_.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               Intent OpenMyHome=new Intent(Login.this,Home.class);
-               startActivity(OpenMyHome);
-            }
-        });
-
-
-        Conexion_.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
                 conectar();
             }
         });
+
+
 
         Register_.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
