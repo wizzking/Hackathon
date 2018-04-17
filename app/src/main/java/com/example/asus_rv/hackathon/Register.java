@@ -32,7 +32,7 @@ public class Register extends AppCompatActivity {
 
         Exit_.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                    finish();
             }
 
         });
