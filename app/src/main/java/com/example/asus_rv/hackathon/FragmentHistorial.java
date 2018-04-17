@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
@@ -55,8 +56,10 @@ public class FragmentHistorial extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        lista=(ListView)getView().findViewById(R.id.lista);
-        lista.setAdapter(new Adapterlist(this,nombreLista,nombreLista2));
+        //lista = (ListView)getView().findViewById(R.id.lista);
+        //ArrayAdapter<String> adaptador;
+        //adaptador=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,nombreLista);
+        //lista.setAdapter(adaptador);
         return inflater.inflate(R.layout.fragment_fragment_historial, container, false);
     }
 
