@@ -38,12 +38,13 @@ public class Login extends AppCompatActivity {
         public void call(final Object... args){
             runOnUiThread(new Runnable() {
                 @Override
-                public void run() {
+                public void run()
+                {
                     SocketData cont= new SocketData();
-                    cont.nip        = "asd";
-                    cont.nombreT    = "asd";
-                    cont.sexo       = "asd";
-                    cont.telefono   = "asd";
+                    cont.User        = "asd";
+                    cont.Password    = "asd";
+                    cont.Status       = "asd";
+                    cont.Type   = "asd";
                     Gson gson=new Gson();
                     mSocket.emit("sendDatosUser",gson.toJson(cont));
                 }
@@ -60,23 +61,27 @@ public class Login extends AppCompatActivity {
 
         Button Home_ = (Button) findViewById(R.id.Home);
         Button Register_ = (Button) findViewById(R.id.Registre);
+        Button Conexion_ = (Button) findViewById(R.id.conexion);
 
 
 
         Home_.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               // Intent OpenMyHome=new Intent(Login.this,Home.class);
-
-               // startActivity(OpenMyHome);
-                conectar();
+               Intent OpenMyHome=new Intent(Login.this,Home.class);
+               startActivity(OpenMyHome);
             }
         });
 
 
+        Conexion_.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                conectar();
+            }
+        });
+
         Register_.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent OpenMyRegister=new Intent(Login.this,Register.class);
-
                 startActivity(OpenMyRegister);
             }
         });
