@@ -79,17 +79,28 @@ public class Login extends AppCompatActivity {
                 {
                     Gson gson=new Gson();
                     SocketData msg=gson.fromJson(args[0].toString(),SocketData.class);
+
                     //Toast.makeText(Login.this, msg.Respuesta, Toast.LENGTH_SHORT).show();
                     if (msg.Respuesta.equals("Persona"))
                     {
-                        Toast.makeText(Login.this, "welcome Persona", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Login.this, "welcome Persona", Toast.LENGTH_SHORT).show();
+
+                        SocketData cont= new SocketData();
+                        cont.SocketIdUser = msg.SockId;
+                        cont.EmailUser = msg.Email;
+                        //Toast.makeText(Login.this, cont.SocketIdUser, Toast.LENGTH_SHORT).show();
+
                         mSocket.disconnect();
                        Intent OpenMyHome=new Intent(Login.this,Home.class);
                       startActivity(OpenMyHome);
                     }
                     else if (msg.Respuesta.equals("Fijo"))
                     {
-                        Toast.makeText(Login.this, "Welcome Fijo", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Login.this, "Welcome Fijo", Toast.LENGTH_SHORT).show();
+                        SocketData cont= new SocketData();
+                        cont.SocketIdUser = msg.SockId;
+                        cont.EmailUser = msg.Email;
+                        //Toast.makeText(Login.this, cont.SocketIdUser, Toast.LENGTH_SHORT).show();
                         mSocket.disconnect();
                        Intent OpenMyHome2=new Intent(Login.this,Home.class);
                        startActivity(OpenMyHome2);
@@ -97,6 +108,7 @@ public class Login extends AppCompatActivity {
                     else
                     {
                         Toast.makeText(Login.this, "No se encontro la cuentaad", Toast.LENGTH_SHORT).show();
+                        mSocket.disconnect();
                     }
                 }
             });

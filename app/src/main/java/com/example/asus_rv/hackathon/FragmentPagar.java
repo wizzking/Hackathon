@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus_rv.hackathon.Config.Config;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -23,6 +27,7 @@ import com.paypal.android.sdk.payments.PaymentConfirmation;
 import org.json.JSONException;
 
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -48,6 +53,67 @@ public class FragmentPagar extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Socket mSocket;
+
+
+    public void conectar ()
+    {
+        // String FinalUser2 = DataUser2.getText().toString();
+        // String FinalPass2 = DataPass2.getText().toString();
+
+        //if(TextUtils.isEmpty(FinalUser2) || TextUtils.isEmpty(FinalPass2)){
+        // Toast.makeText(Login.this, "Favor de Completar los campos.", Toast.LENGTH_SHORT).show();
+        /*}
+        else{*/
+        try {
+            mSocket = IO.socket("http://192.168.8.27:90");
+        } catch (URISyntaxException e) {}
+
+        mSocket.on("getResponse",getResponsePagar);
+        mSocket.on("sendDatosUserCobro",sendDatosUserPago);
+        mSocket.connect();
+    }
+    // }
+
+    public Emitter.Listener getResponsePagar=new Emitter.Listener(){
+        public void call(final Object... args){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run()
+                {
+
+
+                    EditText DataSeatrch = (EditText) getActivity().findViewById(R.id.CantEmail);
+                    String Serach = DataSeatrch.getText().toString();
+
+
+                    SocketData cont= new SocketData();
+                    cont.EmailSerach    = Serach;
+                    cont.pasoEmail = cont.EmailUser;
+                    Gson gson=new Gson();
+                    mSocket.emit("sendDatosUserPago",gson.toJson(cont));
+                }
+            });
+        }
+    };
+
+    public Emitter.Listener sendDatosUserPago=new Emitter.Listener(){
+        public void call(final Object... args){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run()
+                {
+                    Gson gson=new Gson();
+                    SocketData msg=gson.fromJson(args[0].toString(),SocketData.class);
+                    Toast.makeText(getActivity(), msg.Respuesta, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Login.this, msg.Respuesta, Toast.LENGTH_SHORT).show();
+                    mSocket.disconnect();
+                }
+            });
+        }
+    };
+
+
 
     public FragmentPagar() {
         // Required empty public constructor
@@ -91,12 +157,13 @@ public class FragmentPagar extends Fragment {
         getActivity().startService(intent);
 
         btnPayNow = (Button) view.findViewById(R.id.btnPayNow);
-        edtAmout = (EditText) view.findViewById(R.id.edtAmount);
+        //edtAmout = (EditText) view.findViewById(R.id.CantEmail);
 
         btnPayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processPayment();
+                //processPayment();
+                conectar();
             }
         });
         return view;
