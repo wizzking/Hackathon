@@ -70,7 +70,7 @@ public class FragmentPagar extends Fragment {
         } catch (URISyntaxException e) {}
 
         mSocket.on("getResponse",getResponsePagar);
-        mSocket.on("sendDatosUserCobro",sendDatosUserPago);
+        mSocket.on("sendDatosUserPago",sendDatosUserPago);
         mSocket.connect();
     }
     // }

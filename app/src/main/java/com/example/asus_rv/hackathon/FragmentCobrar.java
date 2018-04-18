@@ -57,7 +57,7 @@ public class FragmentCobrar extends Fragment implements View.OnClickListener{
             } catch (URISyntaxException e) {}
 
             mSocket.on("getResponse",getResponseCobrar);
-            //mSocket.on("sendDatosUserCobro",sendDatosUserCobro);
+            //mSocket.on("sendDatosUserPago",sendDatosUserPago);
             mSocket.connect();
         }
    // }
@@ -89,45 +89,20 @@ public class FragmentCobrar extends Fragment implements View.OnClickListener{
 
 
 
-    /*public Emitter.Listener sendDatosUserCobro=new Emitter.Listener(){
+    /*public Emitter.Listener sendDatosUserPago=new Emitter.Listener(){
         public void call(final Object... args){
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run()
                 {
+                    mSocket.emit("sendDatosUserPago",null);
                     Gson gson=new Gson();
                     SocketData msg=gson.fromJson(args[0].toString(),SocketData.class);
-
+                    Toast.makeText(getActivity(), msg.Respuesta, Toast.LENGTH_SHORT).show();
                     //Toast.makeText(Login.this, msg.Respuesta, Toast.LENGTH_SHORT).show();
-                    if (msg.Respuesta.equals("Persona"))
-                    {
-                        //Toast.makeText(Login.this, "welcome Persona", Toast.LENGTH_SHORT).show();
+                    //mSocket.disconnect();
 
-                        SocketData cont= new SocketData();
-                        cont.SocketIdUser = msg.SockId;
-                        cont.EmailUser = msg.Email;
-                        //Toast.makeText(Login.this, cont.SocketIdUser, Toast.LENGTH_SHORT).show();
 
-                        mSocket.disconnect();
-                        /////Intent OpenMyHome=new Intent(Login.this,Home.class);
-                        /////startActivity(OpenMyHome);
-                    }
-                    else if (msg.Respuesta.equals("Fijo"))
-                    {
-                        //Toast.makeText(Login.this, "Welcome Fijo", Toast.LENGTH_SHORT).show();
-                        SocketData cont= new SocketData();
-                        cont.SocketIdUser = msg.SockId;
-                        cont.EmailUser = msg.Email;
-                        //Toast.makeText(Login.this, cont.SocketIdUser, Toast.LENGTH_SHORT).show();
-                        mSocket.disconnect();
-                        /////Intent OpenMyHome2=new Intent(Login.this,Home.class);
-                        /////startActivity(OpenMyHome2);
-                    }
-                    else
-                    {
-                        /////Toast.makeText(Login.this, "No se encontro la cuentaad", Toast.LENGTH_SHORT).show();
-                        mSocket.disconnect();
-                    }
                 }
             });
         }
