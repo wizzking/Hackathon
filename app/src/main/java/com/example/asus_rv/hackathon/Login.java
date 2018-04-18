@@ -88,6 +88,7 @@ public class Login extends AppCompatActivity {
                         SocketData cont= new SocketData();
                         cont.SocketIdUser = msg.SockId;
                         cont.EmailUser = msg.Email;
+                        cont.TypeDatoOfUser = msg.TypePerson;
                         //Toast.makeText(Login.this, cont.SocketIdUser, Toast.LENGTH_SHORT).show();
 
                         mSocket.disconnect();
@@ -100,6 +101,7 @@ public class Login extends AppCompatActivity {
                         SocketData cont= new SocketData();
                         cont.SocketIdUser = msg.SockId;
                         cont.EmailUser = msg.Email;
+                        cont.TypeDatoOfUser = msg.TypePerson;
                         //Toast.makeText(Login.this, cont.SocketIdUser, Toast.LENGTH_SHORT).show();
                         mSocket.disconnect();
                        Intent OpenMyHome2=new Intent(Login.this,Home.class);
