@@ -128,7 +128,7 @@ public class Home extends AppCompatActivity
             fracmentSelected=true;
         }
         if(fracmentSelected){
-            getSupportFragmentManager().beginTransaction().replace(R.id.conte,fracment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.conte,fracment).addToBackStack(null).commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
