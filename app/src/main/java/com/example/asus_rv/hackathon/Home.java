@@ -1,6 +1,7 @@
 package com.example.asus_rv.hackathon;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,17 +17,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import static com.example.asus_rv.hackathon.SocketData.TypeDatoOfUser;
 
 public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,FragmentPagar.OnFragmentInteractionListener,FragmentCobrar.OnFragmentInteractionListener,FragmentHistorial.OnFragmentInteractionListener,FragmentAjustes.OnFragmentInteractionListener,FragmentSalir.OnFragmentInteractionListener {
+        implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener,FragmentPagar.OnFragmentInteractionListener,FragmentCobrar.OnFragmentInteractionListener,FragmentHistorial.OnFragmentInteractionListener,FragmentAjustes.OnFragmentInteractionListener,FragmentSalir.OnFragmentInteractionListener{
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +64,30 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         esconderItem();
+
+        Button mapa= (Button) findViewById(R.id.Mapa);
+
+        mapa.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mapa();
+            }
+        });
+
     }
 
+    public void mapa(){
+        Intent OpenMyRegister=new Intent(Home.this,Mapa.class);
+        startActivity(OpenMyRegister);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        map.addMarker(new MarkerOptions().position(new LatLng(10, 10)).title("Tienda 1"));
+        map.addMarker(new MarkerOptions().position(new LatLng(20, 20)).title("Tienda 2"));
+        map.addMarker(new MarkerOptions().position(new LatLng(30, 30)).title("Tienda 3"));
+        map.addMarker(new MarkerOptions().position(new LatLng(40, 40)).title("Tienda 4"));
+        map.addMarker(new MarkerOptions().position(new LatLng(50, 50)).title("Tienda 5"));
+    }
 
     private void esconderItem(){
         SocketData cont= new SocketData();
