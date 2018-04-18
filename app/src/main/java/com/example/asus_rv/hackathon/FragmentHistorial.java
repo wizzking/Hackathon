@@ -125,7 +125,7 @@ public class FragmentHistorial extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_historial, container, false);
 
-        conectar();
+        ///conectar();
 
 
         lista = (ListView)view.findViewById(R.id.lista);
