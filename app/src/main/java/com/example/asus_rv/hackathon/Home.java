@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.example.asus_rv.hackathon.SocketData.TypeDatoOfUser;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,FragmentPagar.OnFragmentInteractionListener,FragmentCobrar.OnFragmentInteractionListener,FragmentHistorial.OnFragmentInteractionListener,FragmentAjustes.OnFragmentInteractionListener,FragmentSalir.OnFragmentInteractionListener {
     @Override
@@ -51,7 +53,6 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         esconderItem();
     }
 
@@ -62,7 +63,7 @@ public class Home extends AppCompatActivity
         if(TypeDatoOfUser.equals("fijo")){
             nav_Menu.findItem(R.id.nav_pagar).setVisible(false);
         }
-        else if(TypeDatoUser.equals("persona")){
+        else if(TypeDatoOfUser.equals("persona")){
             nav_Menu.findItem(R.id.nav_cobrar).setVisible(false);
 
         }
