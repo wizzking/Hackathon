@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -49,12 +50,23 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //esconderItem();
+
+
+        esconderItem();
     }
+
+
     private void esconderItem(){
         NavigationView navegationView = (NavigationView)findViewById(R.id.nav_view);
         Menu nav_Menu=navegationView.getMenu();
-        nav_Menu.findItem(R.id.nav_cobrar).setVisible(false);
+        if(TypeDatoOfUser.equals("fijo")){
+            nav_Menu.findItem(R.id.nav_pagar).setVisible(false);
+        }
+        else if(TypeDatoUser.equals("persona")){
+            nav_Menu.findItem(R.id.nav_cobrar).setVisible(false);
+
+        }
+
     }
     @Override
     public void onBackPressed() {
