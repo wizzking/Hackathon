@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,FragmentPagar.OnFragmentInteractionListener,FragmentCobrar.OnFragmentInteractionListener,FragmentHistorial.OnFragmentInteractionListener,FragmentAjustes.OnFragmentInteractionListener,FragmentSalir.OnFragmentInteractionListener {
@@ -27,6 +29,14 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        SocketData cont= new SocketData();
+        TextView textView = (TextView) findViewById(R.id.txtsock);
+        textView.setText(cont.SocketIdUser);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -39,7 +49,7 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        esconderItem();
+        //esconderItem();
     }
     private void esconderItem(){
         NavigationView navegationView = (NavigationView)findViewById(R.id.nav_view);
@@ -83,7 +93,7 @@ public class Home extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        android.support.v4.app.Fragment fracment = null;
+            android.support.v4.app.Fragment fracment = null;
         Boolean fracmentSelected = false;
         if (id == R.id.nav_cobrar) {
             fracment = new FragmentCobrar();
