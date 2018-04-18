@@ -57,12 +57,13 @@ public class Home extends AppCompatActivity
 
 
     private void esconderItem(){
+        SocketData cont= new SocketData();
         NavigationView navegationView = (NavigationView)findViewById(R.id.nav_view);
         Menu nav_Menu=navegationView.getMenu();
-        if(TypeDatoOfUser.equals("fijo")){
+        if(cont.TypeDatoOfUser.equals("Fijo")){
             nav_Menu.findItem(R.id.nav_pagar).setVisible(false);
         }
-        else if(TypeDatoUser.equals("persona")){
+        else if(cont.TypeDatoOfUser.equals("Person")){
             nav_Menu.findItem(R.id.nav_cobrar).setVisible(false);
 
         }

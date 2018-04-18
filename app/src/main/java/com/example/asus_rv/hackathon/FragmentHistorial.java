@@ -56,11 +56,12 @@ public class FragmentHistorial extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //lista = (ListView)getView().findViewById(R.id.lista);
-        //ArrayAdapter<String> adaptador;
-        //adaptador=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,nombreLista);
-        //lista.setAdapter(adaptador);
-        return inflater.inflate(R.layout.fragment_fragment_historial, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment_historial, container, false);
+        lista = (ListView)view.findViewById(R.id.lista);
+        ArrayAdapter<String> adaptador;
+        adaptador=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,nombreLista);
+        lista.setAdapter(adaptador);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
