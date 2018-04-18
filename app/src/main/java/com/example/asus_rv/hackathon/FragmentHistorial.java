@@ -9,7 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
+
+import java.net.URISyntaxException;
 
 
 public class FragmentHistorial extends Fragment {
@@ -26,6 +35,64 @@ public class FragmentHistorial extends Fragment {
        ListView lista;
        String[] nombreLista ={"Paulina Vargas","Astrik Adrian","Fernanda Silva"};
        String[] nombreLista2 ={"50 pesos","100 pesos", "300 pesos"};
+
+    private Socket mSocket;
+
+
+    public void conectar ()
+    {
+        // String FinalUser2 = DataUser2.getText().toString();
+        // String FinalPass2 = DataPass2.getText().toString();
+
+        //if(TextUtils.isEmpty(FinalUser2) || TextUtils.isEmpty(FinalPass2)){
+        // Toast.makeText(Login.this, "Favor de Completar los campos.", Toast.LENGTH_SHORT).show();
+        /*}
+        else{*/
+        try {
+            mSocket = IO.socket("http://192.168.8.27:90");
+        } catch (URISyntaxException e) {}
+
+        mSocket.on("getResponse",getDataLogsFun);
+        mSocket.on("getDataLogs",getDataLogs);
+        mSocket.connect();
+    }
+    // }
+
+
+    public Emitter.Listener getDataLogsFun=new Emitter.Listener(){
+        public void call(final Object... args){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run()
+                {
+                    SocketData cont= new SocketData();
+                    cont.pasoEmail = cont.EmailUser;
+                    Gson gson=new Gson();
+                    mSocket.emit("getDataLogs",gson.toJson(cont));
+                }
+            });
+        }
+    };
+
+
+    public Emitter.Listener getDataLogs=new Emitter.Listener(){
+        public void call(final Object... args){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run()
+                {
+                    Gson gson=new Gson();
+                    SocketData msg=gson.fromJson(args[0].toString(),SocketData.class);
+                    Toast.makeText(getActivity(), msg.Respuesta, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Login.this, msg.Respuesta, Toast.LENGTH_SHORT).show();
+                    mSocket.disconnect();
+
+
+                }
+            });
+        }
+    };
+
     public FragmentHistorial() {
         // Required empty public constructor
     }
@@ -57,6 +124,10 @@ public class FragmentHistorial extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_historial, container, false);
+
+        conectar();
+
+
         lista = (ListView)view.findViewById(R.id.lista);
         ArrayAdapter<String> adaptador;
         adaptador=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,nombreLista);
