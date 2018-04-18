@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/Registre"
         android:layout_width="wrap_content"
-        android:layout_height="34dp"
+        android:layout_height="43dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -41,25 +41,28 @@
 
     <EditText
         android:id="@+id/Pass"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_marginBottom="172dp"
+        android:layout_width="181dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="160dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Contraseña"
         android:inputType="textPassword"
-        android:text="88888888"
+        android:text="****"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/User"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="174dp"
+        android:layout_height="39dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -68,7 +71,7 @@
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
-        android:text="Testing"
+        android:text="Usuario"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="12sp"
